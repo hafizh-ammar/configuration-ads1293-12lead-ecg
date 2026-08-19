@@ -56,3 +56,5 @@ Lisat [LICENSE](./LICENSE) untuk detail lengkap.
 Bagian dari proyek pengembangan sistem ECG 12-lead berbasis modul CJMCU-1293
 dan AI untuk deteksi aritmia (Kerja Praktik / Internship, PUI-PT IS-IoT,
 Telkom University).
+
+<img width="1919" height="925" alt="image" src="https://github.com/user-attachments/assets/f8d4e89b-1064-4c22-9687-002190e946ca" />

@@ -31,9 +31,7 @@ Lisat [LICENSE](./LICENSE) untuk detail lengkap.
   dilakukan di lapisan terpisah (post-processing/software), belum
   terintegrasi ke pipeline firmware yang ada di sini.
 - Konfigurasi WCT untuk chest lead (V1-V6) pada `configureSlaveChestLeads()`
-  **belum diuji coba langsung**. Karena filter noise belum tersambung ke
-  jalur ini, belum bisa dipastikan noise WCT sudah hilang atau belum pada
-  kondisi 6 chest lead aktif bersamaan di kedua slave.
+  **belum diuji coba langsung**.
 - Perlu pengujian akuisisi data end-to-end (hardware + filter) sebelum
   konfigurasi ini dipakai untuk pengambilan data produksi/klasifikasi AI.
 

@@ -1,1 +1,1 @@
-# -ds1293-12lead-ecg
+# ads1293-12lead-ecg

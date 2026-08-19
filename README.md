@@ -25,15 +25,31 @@ Lisat [LICENSE](./LICENSE) untuk detail lengkap.
 
 - File `ads1293_leadconfig.cpp` di repo ini hanya mengatur **routing/topology WCT**
   (`configureWilsonReference`, `configureWilsonControl`) dan konfigurasi
-  channel/AFE di level register chip. **Tidak ada penerapan Notch Filter di
-  level kode ini** — filter noise 34-35 Hz dan 68-70 Hz (orde-3) yang
-  sebelumnya dipakai untuk membersihkan jalur WCT IN6 (master) → IN4 (slave)
-  dilakukan di lapisan terpisah (post-processing/software), belum
-  terintegrasi ke pipeline firmware yang ada di sini.
+  channel/AFE di level register chip. Notch Filter untuk noise 34-35 Hz dan
+  101-105 Hz pada jalur WCT IN6 (master) → IN4 (slave) diterapkan di lapisan
+  terpisah (bukan di kode ini), bersifat post-processing terhadap data mentah
+  yang keluar dari chip.
+- **Filter tersebut belum berhasil menghilangkan noise sepenuhnya** —
+  sejauh ini hanya berhasil **mengurangi** magnitude noise pada frekuensi
+  tersebut, bukan menghilangkannya. Artinya residual noise pada jalur WCT
+  masih ada dan berpotensi memengaruhi kualitas sinyal, termasuk risiko
+  memicu misklasifikasi pada model AI (lihat catatan terkait di laporan KP).
 - Konfigurasi WCT untuk chest lead (V1-V6) pada `configureSlaveChestLeads()`
-  **belum diuji coba langsung**.
-- Perlu pengujian akuisisi data end-to-end (hardware + filter) sebelum
-  konfigurasi ini dipakai untuk pengambilan data produksi/klasifikasi AI.
+  **belum diuji coba langsung**, sehingga performa filter pada kondisi 6
+  chest lead aktif bersamaan di kedua slave belum diketahui — bisa jadi
+  residual noise-nya lebih besar atau lebih kecil dari yang terukur pada
+  limb lead.
+- Pengujian sebelumnya (termasuk karakterisasi noise 34-35 Hz & 68-70 Hz)
+  dilakukan menggunakan **ECG simulator (MS400)**, bukan sinyal dari
+  tubuh manusia langsung. Sinyal simulator bersifat sintetis dan bersih dari
+  noise fisiologis (motion artifact, EMG, variasi impedansi kulit-elektroda),
+  sehingga hasil pengujian ini belum tentu merepresentasikan kondisi noise
+  saat akuisisi pada subjek manusia sebenarnya.
+- Perlu penyempurnaan filter (misal menaikkan orde, mempersempit bandwidth
+  notch, atau kombinasi dengan filter lain) serta pengujian akuisisi data
+  end-to-end (hardware + filter), baik dengan simulator maupun subjek
+  manusia, sebelum konfigurasi ini dipakai untuk pengambilan data
+  produksi/klasifikasi AI.
 
 ## Konteks Proyek
 
